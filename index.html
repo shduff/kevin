@@ -1,1 +1,128 @@
-🎄 coming soon 🎄
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bad+Script&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div id="banner">
+		<p>🎄🚧 under construction 🚧🎄</p>
+	</div>
+
+	<h1 id="page-title">Merry Advent, Kevin!</h1>
+	<div id="cards">
+		
+
+	</div>
+
+</body>
+
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Bad+Script&display=swap');
+
+	body {
+		margin: 0;
+		background-color: lightgreen;
+		font-family: 'Bad Script', cursive;
+	}
+	#banner {
+		border-bottom: solid 4px black;
+		display: flex;
+		justify-content: center;
+		font-size: 2em;
+		background-color: lightyellow;
+	}
+	#page-title {
+		font-size: 4em;
+		text-align: center;
+	}
+	#cards {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	.card-link {
+		position: relative;
+		width: 30%;
+		height: 300px;
+		margin: 8px;
+		text-decoration: none;
+		color: black;
+		border-radius: 16px;
+		border: solid 4px black;
+		background-color: lightpink;
+	}
+	.card-link:nth-child(2n) {
+		background-color: lightyellow;
+	}
+	.card-title {
+		margin: 0 20px;
+	}
+	.card {
+		position: absolute;
+		display:flex;
+		align-items: center;
+		justify-content: center;
+		top:0;
+		width: 100%;
+		height: 100%;
+		font-size: 4em;
+	}
+
+</style>
+
+<script>
+	let playlistLinks = {
+		1: "https://open.spotify.com/playlist/383Q07yrkJKt6LvW3KJXD6?si=c4e219f6299346db",
+		2: "https://open.spotify.com/playlist/49pAf9SfqTGzYGShh2ci65?si=c6fc9883ebbd49b7",
+		3: "https://open.spotify.com/playlist/29QXiTrF0U1ATnE63gmGZW?si=2de8e0a6a0cc4125",
+		4: "https://open.spotify.com/playlist/1ooHhip04H4LLlE1uQxkIX?si=aa4ebddfa1cd4e18",
+		5: "https://open.spotify.com/playlist/6v7WSiEDHZdq3ecIBq3sj0?si=d370f3368e00402e",
+		6: "https://open.spotify.com/playlist/5c9D3BlvpTpQLqwSck1VAZ?si=3179ac33cd054f84",
+		7: "https://open.spotify.com/playlist/3OpDhjkenXAXUiWCI4tP4g?si=116b4eeacae14229",
+		8: "https://open.spotify.com/playlist/7571SUgD7SAXxdCi9fj2iX?si=ffb4390700e0497f",
+		9: "https://open.spotify.com/playlist/5ADlngVDBoUNb7XnLe1R75?si=d2b01f8a4bc34d16",
+		10: "https://open.spotify.com/playlist/3vwsXQrpzcsUNNQLcWMI3z?si=17a35161d39744f6",
+		11: "https://open.spotify.com/playlist/7o1nIZ2IuerLeJ1RUHQvg5?si=ad4e8fc867bc45d2",
+		12: "https://open.spotify.com/playlist/6RFbL7mCIlIBvouzSphr87?si=6c43d08681f14436",
+		13: "https://open.spotify.com/playlist/23PvaaiaIjK8qjJQ2A4MpV?si=892d172c963549d7",
+		14: "https://open.spotify.com/playlist/2VyhTi8kMkzcaaBEoXUAhR?si=188054e4c1f147a7",
+		15: "https://open.spotify.com/playlist/6xlaa1KglZ39c8fe36C3Ba?si=9d2e0052c39d46d9",
+		16: "https://open.spotify.com/playlist/5mE5zSXLGZ3gTIconUyFoL?si=9858622ae3b340af",
+		17: "https://open.spotify.com/playlist/1ivA3qknLYoRuobXqA3Im1?si=9ce11bd7b9f54dbe",
+		18: "https://open.spotify.com/playlist/7irm4o2Ti35mxwJwsbsaCD?si=e792e3a62ff04fe1",
+		19: "https://open.spotify.com/playlist/39SURZiT0ItCr8bgwhATyA?si=c786491823bf4c76",
+		20: "https://open.spotify.com/playlist/4BGqtIi1RAU2TVyxX3z2VI?si=f381648f30cf4c22",
+		21: "https://open.spotify.com/playlist/7DYpcgB01hz4FmcqdvdYiB?si=4a424c54478f4fe2",
+		22: "https://open.spotify.com/playlist/7H8r73YqjTAgyLzv8frfBi?si=3e5648e0a93d47db",
+		23: "https://open.spotify.com/playlist/7jR5nCmdi5SMgFUkjzDYmC?si=4243b52277c34dcb",
+		24: "https://open.spotify.com/playlist/4NwCFqh4SiFjcJr7lNYZRs?si=9bc02b0e50394f22"
+	};
+
+
+	let cards = document.getElementById("cards");
+	let cardDivs = Object.values(playlistLinks).forEach(function(link, index) {
+		let cardLink = document.createElement("a");
+		cardLink.href = link;
+		cardLink.classList.add("card-link");
+		let card = document.createElement("div");
+		card.classList.add("card");
+		let cardTitle = document.createElement("h1");
+		cardTitle.innerHTML = index+1;
+		cardTitle.classList.add("card-title");
+		// let cardDesc = document.createElement("p");
+		// cardDesc.innerHTML = "Description";
+		// cardDesc.classList.add("card-desc");
+
+		card.appendChild(cardTitle);
+		cardLink.appendChild(card);
+		// card.appendChild(cardDesc);
+		cards.appendChild(cardLink)
+	});
+
+</script>
+
+</html>
