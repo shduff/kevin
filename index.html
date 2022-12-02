@@ -13,10 +13,7 @@
 	</div>
 
 	<h1 id="page-title">Merry Advent, Kevin!</h1>
-	<div id="cards">
-		
-
-	</div>
+	<div id="cards"></div>
 
 </body>
 
@@ -113,13 +110,9 @@
 		let cardTitle = document.createElement("h1");
 		cardTitle.innerHTML = index+1;
 		cardTitle.classList.add("card-title");
-		// let cardDesc = document.createElement("p");
-		// cardDesc.innerHTML = "Description";
-		// cardDesc.classList.add("card-desc");
 
 		card.appendChild(cardTitle);
 		cardLink.appendChild(card);
-		// card.appendChild(cardDesc);
 		cards.appendChild(cardLink)
 	});
 
