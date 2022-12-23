@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>🎄Advent 2022🎄</title>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,6 +32,50 @@
 		font-size: 2em;
 		background-color: lightyellow;
 	}
+	.popup {
+		position:fixed;
+		z-index:10;
+		top:0;
+		left:0;
+		height:100%;
+		width:100%;
+		background-color:lightyellow;
+		font-size:.5em;
+		cursor:auto;
+	}
+	.popContent {
+		position:fixed;
+		margin:3%;
+		padding:3%;
+		height:80%;
+		width:88%;
+		background-color:lightgreen;
+		border-radius: 12px;
+		border:black solid 1px;
+	}
+	input {
+		height:3em;
+		width:12em;
+		border-radius:12px;
+		font-size:.75em;
+		background-color:lightpink;
+		color:black;
+	}
+	.popTitle {
+		font-size:1.5em;
+	}
+	.popCloseButton {
+		cursor: pointer;
+		font-size:1em;
+		position:absolute;
+		top:16px;
+		right:24px;
+		font-family:sans-serif;
+	}
+	.popDescription {
+		font-family:sans-serif;
+
+	}
 	#page-title {
 		font-size: 4em;
 		text-align: center;
@@ -40,20 +84,6 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-	}
-	.card-link {
-		position: relative;
-		width: 30%;
-		height: 300px;
-		margin: 8px;
-		text-decoration: none;
-		color: black;
-		border-radius: 16px;
-		border: solid 4px black;
-		background-color: lightpink;
-	}
-	.card-link:nth-child(2n) {
-		background-color: lightyellow;
 	}
 	.card-title {
 		margin: 0 20px;
@@ -67,53 +97,205 @@
 		width: 100%;
 		height: 100%;
 		font-size: 4em;
+		cursor:pointer;
+
+		position: relative;
+		width: 30%;
+		height: 300px;
+		margin: 8px;
+		text-decoration: none;
+		color: black;
+		border-radius: 16px;
+		border: solid 4px black;
+		background-color: lightpink;
+	}
+	.card:nth-child(2n) {
+		background-color: lightyellow;
 	}
 
 </style>
 
 <script>
-	let playlistLinks = {
-		1: "https://open.spotify.com/playlist/383Q07yrkJKt6LvW3KJXD6?si=c4e219f6299346db",
-		2: "https://open.spotify.com/playlist/49pAf9SfqTGzYGShh2ci65?si=c6fc9883ebbd49b7",
-		3: "https://open.spotify.com/playlist/29QXiTrF0U1ATnE63gmGZW?si=2de8e0a6a0cc4125",
-		4: "https://open.spotify.com/playlist/1ooHhip04H4LLlE1uQxkIX?si=aa4ebddfa1cd4e18",
-		5: "https://open.spotify.com/playlist/6v7WSiEDHZdq3ecIBq3sj0?si=d370f3368e00402e",
-		6: "https://open.spotify.com/playlist/5c9D3BlvpTpQLqwSck1VAZ?si=3179ac33cd054f84",
-		7: "https://open.spotify.com/playlist/3OpDhjkenXAXUiWCI4tP4g?si=116b4eeacae14229",
-		8: "https://open.spotify.com/playlist/7571SUgD7SAXxdCi9fj2iX?si=ffb4390700e0497f",
-		9: "https://open.spotify.com/playlist/5ADlngVDBoUNb7XnLe1R75?si=d2b01f8a4bc34d16",
-		10: "https://open.spotify.com/playlist/3vwsXQrpzcsUNNQLcWMI3z?si=17a35161d39744f6",
-		11: "https://open.spotify.com/playlist/7o1nIZ2IuerLeJ1RUHQvg5?si=ad4e8fc867bc45d2",
-		12: "https://open.spotify.com/playlist/6RFbL7mCIlIBvouzSphr87?si=6c43d08681f14436",
-		13: "https://open.spotify.com/playlist/23PvaaiaIjK8qjJQ2A4MpV?si=892d172c963549d7",
-		14: "https://open.spotify.com/playlist/2VyhTi8kMkzcaaBEoXUAhR?si=188054e4c1f147a7",
-		15: "https://open.spotify.com/playlist/6xlaa1KglZ39c8fe36C3Ba?si=9d2e0052c39d46d9",
-		16: "https://open.spotify.com/playlist/5mE5zSXLGZ3gTIconUyFoL?si=9858622ae3b340af",
-		17: "https://open.spotify.com/playlist/1ivA3qknLYoRuobXqA3Im1?si=9ce11bd7b9f54dbe",
-		18: "https://open.spotify.com/playlist/7irm4o2Ti35mxwJwsbsaCD?si=e792e3a62ff04fe1",
-		19: "https://open.spotify.com/playlist/39SURZiT0ItCr8bgwhATyA?si=c786491823bf4c76",
-		20: "https://open.spotify.com/playlist/4BGqtIi1RAU2TVyxX3z2VI?si=f381648f30cf4c22",
-		21: "https://open.spotify.com/playlist/7DYpcgB01hz4FmcqdvdYiB?si=4a424c54478f4fe2",
-		22: "https://open.spotify.com/playlist/7H8r73YqjTAgyLzv8frfBi?si=3e5648e0a93d47db",
-		23: "https://open.spotify.com/playlist/7jR5nCmdi5SMgFUkjzDYmC?si=4243b52277c34dcb",
-		24: "https://open.spotify.com/playlist/4NwCFqh4SiFjcJr7lNYZRs?si=9bc02b0e50394f22"
+	let playlistData = {
+		1: [
+			"https://open.spotify.com/playlist/383Q07yrkJKt6LvW3KJXD6?si=c4e219f6299346db", 
+			"1  //  Let's Get It Started // Merry Advent, Kevin!", 
+			"You said I would never follow through on the 00s playlist I promised you, but I invite you to eat your words, because here it is—on steroids. 25 installments, each list's length corresponding to the day's date, featuring guest curators, with a new playlist for every day of the advent season. Enjoy!", 
+		],
+		2: [
+			"https://open.spotify.com/playlist/49pAf9SfqTGzYGShh2ci65?si=c6fc9883ebbd49b7", 
+			"2  //  HBD, K! // Merry Advent, Kevin!", 
+			"60 years, motherfucker! We'll party in person tonight, but enjoy these tunes during your pregame.", 
+		],
+		3: [
+			"https://open.spotify.com/playlist/29QXiTrF0U1ATnE63gmGZW?si=2de8e0a6a0cc4125", 
+			"3  // The Holy Trinity // Merry Advent, Kevin!", 
+			"You down with G-O-D? Yeah you know me! In the 2000s, I was still letting go of my faith, and here are a few of the Christian jams I unironically loved. Honorable mentions go out to the Sister Act I and II soundtracks. ", 
+		],
+		4: [
+			"https://open.spotify.com/playlist/1ooHhip04H4LLlE1uQxkIX?si=aa4ebddfa1cd4e18", 
+			"4 // Angels // Merry Advent, Kevin!", 
+			"'Tis the season, so let's spend another playlist celebrating the big JC...kind of. 4 is the angel number, so here are some of my teen faves that jammed hard with that number.", 
+		],
+		5: [
+			"https://open.spotify.com/playlist/6v7WSiEDHZdq3ecIBq3sj0?si=d370f3368e00402e", 
+			"5  // Pomp And Circumstances // Merry Advent, Kevin!", 
+			"2005. It was the year I graduated high school, leaving abusive boyfriends, bigoted small town neighbors, and red state libertarianism behind.  The only song that needs explanation is #2, which I quoted heavily in my Valedictorian speech, going rogue from my approved statement to ruminate on death.", 
+		],
+		6: [
+			"https://open.spotify.com/playlist/5c9D3BlvpTpQLqwSck1VAZ?si=3179ac33cd054f84", 
+			"6  // Delilah's Rx // Merry Advent, Kevin!", 
+			"Delilah was a HALLMARK of childhood car rides: taking listener calls, mhm'ing to their woes, playing songs like remedies to their ailments. The treatments were usually inappropriate and always sappy. I bet she prescribed these on the daily, indiscriminately for deaths, births, and conflicts alike.", 
+		],
+		7: [
+			"https://open.spotify.com/playlist/3OpDhjkenXAXUiWCI4tP4g?si=116b4eeacae14229", 
+			"7  // Snake Eyes // Merry Advent, Kevin!", 
+			"Do you believe 7 is a lucky number? Well, it's as good a theme as any.", 
+		],
+		8: [
+			"https://open.spotify.com/playlist/7571SUgD7SAXxdCi9fj2iX?si=ffb4390700e0497f", 
+			"8  // $$$ // Merry Advent, Kevin!", 
+			"Money, Money, Money. People have been singing about it since there was singing. Is it good? Is it bad? Whatever it is, it's led to musical manifestos on power, value, and fame—and masterpieces like these.", 
+		],
+		9: [
+			"https://open.spotify.com/playlist/5ADlngVDBoUNb7XnLe1R75?si=d2b01f8a4bc34d16", 
+			"9  // Aughts - Crossover Covers by Karl // Merry Advent, Kevin!", 
+			"These are songs from the century prior to 2000, reinterpreted in the aughts, either by the original artist or another artist, with most representing some sort of genre or band crossover (e.g., rock singer singing in a jazz or classical style, or singing a jazz song).", 
+		],
+		10: [
+			"https://open.spotify.com/playlist/3vwsXQrpzcsUNNQLcWMI3z?si=17a35161d39744f6", 
+			"10  // Aughts - New Songs by Karl // Merry Advent, Kevin!", 
+			"Not much to link these other than they're mostly songs from the 00s that I like. Gino's thrown in just as a lark, and as a self-deprecating reference to the fact that I was really into his music in the 70s. (Good to see he never lost that male chauvinism that gave his music that special extra edge!)",
+		],
+		11: [
+			"https://open.spotify.com/playlist/7o1nIZ2IuerLeJ1RUHQvg5?si=ad4e8fc867bc45d2", 
+			"11  // The Department of Peace // Merry Advent, Kevin!", 
+			"Music was one of the only ways I was introduced to radical politics as a teenager. Here's what stood out to me. Songs about prison, police, and the military industrial complex writ large.",
+		],
+		12: [
+			"https://open.spotify.com/playlist/6RFbL7mCIlIBvouzSphr87?si=6c43d08681f14436", 
+			"12  // KemonLemon60 from George // Merry Advent, Kevin!", 
+			"Help was out of the question. As Tim said when I asked: 'Kevin…forgetaboutit! That cat listens to everything!' So I'm afraid buddy that you're stuck with my first ever public playlist. Just stuff I like or am learning. I've got a longer description that won't fit on Spotify if you want it.",
+		],
+		13: [
+			"https://open.spotify.com/playlist/23PvaaiaIjK8qjJQ2A4MpV?si=892d172c963549d7", 
+			"13 // Transcend! // Merry Advent, Kevin!", 
+			"I think most of my adult life has been spent trying to find secular experiences of worship and transcendence. These are some of the songs I lived inside during the early years of that pilgrimage, holding onto the meaningful metaphors of Christianity while letting go of belief.",
+		],
+		14: [
+			"https://open.spotify.com/playlist/2VyhTi8kMkzcaaBEoXUAhR?si=188054e4c1f147a7", 
+			"14 // Consent Is Sexy // Merry Advent, Kevin!", 
+			"This playlist breaks the 00s constraint here and there, but for a good cause. This is a playlist idea I've had for a while. You might even have heard an earlier version of it. But here it is, in its final incarnation, advent-style!",
+		],
+		15: [
+			"https://open.spotify.com/playlist/6xlaa1KglZ39c8fe36C3Ba?si=9d2e0052c39d46d9", 
+			"15  // Kevin Turns 60 by Phin // Merry Advent, Kevin!", 
+			"",
+		],
+		16: [
+			"https://open.spotify.com/playlist/5mE5zSXLGZ3gTIconUyFoL?si=9858622ae3b340af", 
+			"16  // Blow & Other Substances //  Merry Advent, Kevin!", 
+			"In the 60s, people wrote beautiful songs about the power of drugs to expand consciousness. In the 00s, people wrote songs of different qualities about different drug experiences: flying above dance floors on molly, hitting rock bottom with the bottle, seeking and refusing sobriety.",
+		],
+		17: [
+			"https://open.spotify.com/playlist/1ivA3qknLYoRuobXqA3Im1?si=9ce11bd7b9f54dbe", 
+			"17  // New And Newly Revisited by Marcello // Merry Advent, Kevin!", 
+			"To Kevin with amore",
+		],
+		18: [
+			"https://open.spotify.com/playlist/7irm4o2Ti35mxwJwsbsaCD?si=e792e3a62ff04fe1", 
+			"18 // Barely Legal // Merry Advent, Kevin!", 
+			"The music industry was a teen scene  during my youth. It mostly wasn't my taste, but it was unavoidable. Here are a mix of my faves and my can't-forget-them-even-though-I've-trieds. They are mostly teens themselves, with others clearly (and somewhat predatorily) targeting that TRL-watching demo. ",
+		],
+		19: [
+			"https://open.spotify.com/playlist/39SURZiT0ItCr8bgwhATyA?si=c786491823bf4c76", 
+			"19  // The Bechdel Test // Merry Advent, Kevin!", 
+			"Feminists can talk about boys, along with whatever the fuck else. These women talk about boys, girls, sex, aging, depression, the vapidity of modern America, the ecstasy of music, and lots more...as if they were whole people. Consider this an aughties response to your Girl Power playlist!",
+		],
+		20: [
+			"https://open.spotify.com/playlist/4BGqtIi1RAU2TVyxX3z2VI?si=f381648f30cf4c22", 
+			"20  // Songs For Karaoke // Merry Advent, Kevin!", 
+			"Now that I've done karaoke once, I'm basically an expert, I'd say. Here are the 00s songs I've belted in the shower, the car, and w/the right company enough to know they ought to be sung into a karaoke mic. I've focused on songs I suspect are millenial-only hits...with a few classics thrown in.",
+		],
+		21: [
+			"https://open.spotify.com/playlist/7DYpcgB01hz4FmcqdvdYiB?si=4a424c54478f4fe2", 
+			"21  // Great Masters Remastered in the 2000s by Rosalie // Merry Advent, Kevin!", 
+			"Make a play list for KL with a 2000s theme but find a way to sneak in old school masters? No Problem! On this 21st day, enjoy 21 tunes from across the 20th century, each track remastered during the 2000s. (ok fine, Aretha's is '99, but close enough!) Enjoy!",
+		],
+		22: [
+			"https://open.spotify.com/playlist/7H8r73YqjTAgyLzv8frfBi?si=3e5648e0a93d47db", 
+			"22  // Indie Shit // Merry Advent, Kevin!", 
+			"College offered my first Illegal Music Server. I'd search long, plain text lists of album and artist names, knowing nothing about their sound or story. This server was responsible for 1000s of hours of listening and most of my pre-brass adult music tastes. Enjoy this 00s filter on my fave IMS finds!",
+		],
+		23: [
+			"https://open.spotify.com/playlist/7jR5nCmdi5SMgFUkjzDYmC?si=4243b52277c34dcb", 
+			"23  // The Big Screen // Merry Advent, Kevin!", 
+			"Movies were a major source of music education for me. 2000s movies heavily mined older artists as well as featuring the contemporary indie shit you got to hear yesterday. These are a collection of some of the movie tracks that turned me on to artists I'd come to love, listening over and over again. ",
+		],
+		24: [
+			"https://open.spotify.com/playlist/4NwCFqh4SiFjcJr7lNYZRs?si=9bc02b0e50394f22",
+		 "24  // D.A.R.E. Dance At The Rec Center // Merry Advent, Kevin!", 
+		 "Drug Abuse Resistance Education. It was school cops, i-will-never-smoke contracts, and dances at the rec center providing perfect opportunities to kiss and imbibe in the parking lot. This is the list that inspired it all, the unchosen songs of my youth from dances that somehow always ended with MJ.",
+		]
 	};
 
 
 	let cards = document.getElementById("cards");
-	let cardDivs = Object.values(playlistLinks).forEach(function(link, index) {
-		let cardLink = document.createElement("a");
-		cardLink.href = link;
-		cardLink.classList.add("card-link");
+	let cardDivs = Object.values(playlistData).forEach(function(link, index) {
+		
 		let card = document.createElement("div");
 		card.classList.add("card");
+		card.id = index+1;
 		let cardTitle = document.createElement("h1");
 		cardTitle.innerHTML = index+1;
 		cardTitle.classList.add("card-title");
 
+		let popup = document.createElement("div");
+		popup.classList.add("popup");
+		popup.style.display = "none";
+		let popContent = document.createElement("div");
+		popContent.classList.add("popContent");
+		let popCloseButton = document.createElement("div");
+		popCloseButton.classList.add("popCloseButton");
+		popCloseButton.innerHTML = "X";
+		popCloseButton.addEventListener("click", function(event) {
+			event.target.offsetParent.parentElement.style.display = "none";
+		});
+		let popLink = document.createElement("form");
+		popLink.classList.add("popLink");
+		popLink.action = playlistData[index+1][0];
+		let popLinkInput = document.createElement("input");
+		popLinkInput.type = "submit";
+		popLinkInput.value = "Go to playlist";
+		popLink.appendChild(popLinkInput);
+		let popTitle = document.createElement("h1");
+		popTitle.classList.add("popTitle")
+		popTitle.innerHTML = playlistData[index+1][1];
+		let popDescription = document.createElement("p");
+		popDescription.classList.add("popDescription");
+		popDescription.innerHTML = playlistData[index+1][2];
+
+		popContent.appendChild(popCloseButton);
+		popContent.appendChild(popTitle);
+		popContent.appendChild(document.createElement("hr"));
+		popContent.appendChild(popDescription);
+		popContent.appendChild(popLink);
+		popup.appendChild(popContent);
+
+
+		card.addEventListener("click", function(event) {
+			let myPopup = document.getElementById(event.target.id).firstChild;
+			myPopup.style.display = "block";
+		});
+		cardTitle.addEventListener("click", function(event) {
+			let myPopup = document.getElementById(event.target.offsetParent.id).firstChild;
+			myPopup.style.display = "block";
+		});
+
+		card.appendChild(popup);
 		card.appendChild(cardTitle);
-		cardLink.appendChild(card);
-		cards.appendChild(cardLink)
+
+		cards.appendChild(card);
 	});
 
 </script>
